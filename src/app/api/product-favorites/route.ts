@@ -19,6 +19,15 @@ export async function GET(req: NextRequest) {
     const orderByCreatedAt: "asc" | "desc" =
       searchParams.get("createdAt") === "asc" ? "asc" : "desc";
 
+    if (!userId) {
+      return Response({
+        message: "Unauthorized",
+        data: null,
+        status: 401,
+        isSuccess: false,
+      });
+    }
+
     const [products, total] = await prisma.$transaction([
       prisma.productFavorite.findMany({
         where: { userId },

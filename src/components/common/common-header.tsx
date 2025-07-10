@@ -278,7 +278,7 @@ const CommonHeader: React.FC<HeaderProps> = () => {
               <CommonNotificationBadge
                 notificationDetail={{
                   color: "bg-carrot",
-                  count: dataCheckouts?.data.length,
+                  count: dataCheckouts?.data.length || 0,
                 }}
               >
                 <IconCart className="w-5 h-5" stroke="leaf" />

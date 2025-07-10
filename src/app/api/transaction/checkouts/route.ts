@@ -11,6 +11,14 @@ export async function GET(req: NextRequest) {
     // Jika user belum login
     const userId = session?.user?.id;
 
+    if (!userId) {
+      return Response({
+        message: "Unauthorized",
+        data: null,
+        status: 401,
+        isSuccess: false,
+      });
+    }
     const checkouts = await prisma.checkout.findMany({
       where: { userId },
       include: {
