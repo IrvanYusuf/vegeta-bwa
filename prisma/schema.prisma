@@ -1,0 +1,150 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum ProductCategory {
+  FUNGI
+  FRUIT
+  VEGETABLE
+  ONION
+  BEANS
+  SPICE
+}
+
+enum ProductUnit {
+  PCS
+  GRAM
+  KG
+  LITER
+  ML
+  PACK
+  BOX
+  BOTTLE
+}
+
+enum TransactionStatus {
+  PENDING
+  PAID
+  CANCELLED
+  COMPLETED
+}
+
+enum DELIVERY_METHOD {
+  HOME_DELIVERY
+  STORE_PICKUP
+}
+
+model User {
+  id              String            @id @default(cuid())
+  name            String
+  email           String            @unique
+  password        String
+  createdAt       DateTime          @default(now()) @map("created_at")
+  updatedAt       DateTime          @updatedAt @map("updated_at")
+  ProductFavorite ProductFavorite[]
+  Checkout        Checkout[]
+  Transaction     Transaction[]
+
+  @@map("users")
+}
+
+model Product {
+  id              String            @id @default(cuid())
+  name            String            @unique
+  image           String
+  description     String            @db.Text
+  price           Int               @default(0) @db.Integer
+  itemSold        Int               @default(0) @map("item_sold") @db.Integer
+  rating          Int               @default(0) @db.Integer
+  category        ProductCategory
+  unit            ProductUnit       @default(PCS)
+  createdAt       DateTime          @default(now()) @map("created_at")
+  updatedAt       DateTime          @updatedAt @map("updated_at")
+  ProductFavorite ProductFavorite[]
+  Checkout        Checkout[]
+  TransactionItem TransactionItem[]
+
+  @@map("products")
+}
+
+model ProductFavorite {
+  id        String   @id @default(cuid())
+  userId    String   @map("user_id")
+  productId String   @map("product_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, productId])
+  @@map("product_favorites")
+}
+
+model Checkout {
+  id           String   @id @default(cuid())
+  userId       String   @map("user_id")
+  productId    String   @map("product_id")
+  qty          Int      @default(0)
+  pricePerItem Int      @default(0) @map("price_per_item")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, productId])
+  @@map("checkouts")
+}
+
+model Transaction {
+  id             String            @id @default(cuid())
+  userId         String            @map("user_id")
+  totalAmount    Int               @default(0) @map("total_amount")
+  deliveryFee    Int               @default(0) @map("delivery_fee")
+  insuranceFee   Int               @default(0) @map("insurance_fee")
+  applicationFee Int               @default(0) @map("application_fee")
+  status         TransactionStatus @default(PENDING)
+  method         DELIVERY_METHOD   @default(HOME_DELIVERY)
+
+  // Informasi Pengiriman
+  receiverName String? @map("receiver_name")
+  phoneNumber  String? @map("phone_number")
+  address      String? @db.Text
+  province     String?
+  city         String?
+  district     String?
+  postalCode   String? @map("postal_code")
+
+  paymentDue DateTime @map("payment_due")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  user  User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items TransactionItem[]
+
+  @@map("transactions")
+}
+
+model TransactionItem {
+  id            String @id @default(cuid())
+  transactionId String @map("transaction_id")
+  productId     String @map("product_id")
+  qty           Int    @default(0)
+  pricePerItem  Int    @default(0) @map("price_per_item")
+
+  transaction Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  product     Product     @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@map("transaction_items")
+}
