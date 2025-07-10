@@ -251,7 +251,7 @@ export default function Products() {
         </div>
       </div>
 
-      <div className="w-[100%] lg:w-content separator lg:mt-14 mt-2 lg:my-6 mb-8" />
+      <div className="w-[100%] lg:w-content separator lg:mt-14 mt-12 lg:my-6 mb-8" />
 
       <div className="w-[100%] lg:w-content">
         <div className="flex justify-between mb-6 items-center">

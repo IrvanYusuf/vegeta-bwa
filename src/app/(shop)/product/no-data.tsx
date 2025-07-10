@@ -10,9 +10,9 @@ interface INodataProps {
 const NoData: FC<INodataProps> = ({ desc }) => {
   return (
     <>
-      <div className="flex w-full h-full items-center justify-center">
-        <div className="w-auto h-auto flex flex-col items-center">
-          <div className="w-[331px] h-[203px] relative">
+      <div className="flex w-[100%] h-full items-center justify-center">
+        <div className="w-[100%] flex flex-col items-center">
+          <div className="lg:w-[331px] w-[100%] h-[203px] relative">
             <Image
               src={Illustration}
               layout="fill"
@@ -21,7 +21,7 @@ const NoData: FC<INodataProps> = ({ desc }) => {
             />
           </div>
           <div className="text-2xl font-semibold">Uuuupps..</div>
-          <div className="w-[390px] mt-2 text-center">
+          <div className="lg:w-[390px] w-[100%] mt-2 text-center">
             {!desc
               ? `Produk yang kamu cari tidak bisa kami temukan, cobalah menggunakan
             kata kunci, filter lainnya atau cek produk rekomendasi kami dibawah
