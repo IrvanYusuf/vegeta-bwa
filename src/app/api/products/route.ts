@@ -16,14 +16,6 @@ export async function GET(req: NextRequest) {
     const page = parseInt(searchParams.get("page") || "1");
     const skip = (page - 1) * limit;
 
-    if (!userId) {
-      return Response({
-        message: "Unauthorized",
-        data: null,
-        status: 401,
-        isSuccess: false,
-      });
-    }
     // filter
     // parse multiple category values from query: ?categories=FRUIT,VEGETABLE
     const categoryParam = searchParams.get("categories"); // "FRUIT,VEGETABLE"
