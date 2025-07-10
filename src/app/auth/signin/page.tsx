@@ -18,7 +18,7 @@ export default function SignIn() {
     <>
       <SignInForm />
 
-      <div className="flex flex-col w-[100%] gap-3 items-center">
+      {/* <div className="flex flex-col w-[100%] gap-3 items-center">
         <div className="w-[100%]">
           <div className="tracking-wider w-[100%] text-base text-gray-500 h-8 text-center">
             atau
@@ -56,7 +56,7 @@ export default function SignIn() {
           </div>
           Masuk dengan Facebook
         </Button>
-      </div>
+      </div> */}
 
       <div className="tracking-wider text-base text-gray-500 mt-12">
         Belum memiliki akun?{" "}
