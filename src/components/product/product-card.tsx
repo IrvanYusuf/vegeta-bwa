@@ -159,12 +159,12 @@ const ProductCard: React.FC<CardProps> = ({
         >
           {isLoadingMutateCheckout ? (
             <>
-              <Loader className="animate-spin mr-2" />
+              <Loader className="animate-spin lg:mr-2" />
               {/* <IconCart
                   className="w-[18px] h-[18px] md:block hidden mr-2"
                   stroke="background"
                 /> */}
-              Masukkan Keranjang
+              <div className="lg:block hidden">Masukkan Keranjang</div>
             </>
           ) : (
             <>

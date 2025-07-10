@@ -207,14 +207,36 @@ const CommonHeader: React.FC<HeaderProps> = () => {
             <div className="flex gap-6">
               <Link href={"/auth/signup"}>
                 <Button
-                  className={cn("py-1 px-7 bg-leaf leading-4", hover.shadow)}
+                  className={cn(
+                    "py-1 px-7 bg-leaf lg:hidden block leading-4",
+                    hover.shadow
+                  )}
+                >
+                  Daftar
+                </Button>
+                <Button
+                  className={cn(
+                    "py-1 px-7 bg-leaf lg:block hidden leading-4",
+                    hover.shadow
+                  )}
                 >
                   Daftar Sekarang
                 </Button>
               </Link>
               <Link href={"/auth/signin"}>
                 <Button
-                  className={cn("py-1 px-7 bg-carrot leading-4", hover.shadow)}
+                  className={cn(
+                    "py-1 px-7 bg-carrot lg:hidden block leading-4",
+                    hover.shadow
+                  )}
+                >
+                  Masuk
+                </Button>
+                <Button
+                  className={cn(
+                    "py-1 px-7 bg-carrot lg:block hidden leading-4",
+                    hover.shadow
+                  )}
                 >
                   Masuk akun
                 </Button>
