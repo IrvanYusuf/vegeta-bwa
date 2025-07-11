@@ -47,7 +47,7 @@ const ProductCard: React.FC<CardProps> = ({
 
   const handleAddToCart = async (payload: CheckoutPayload) => {
     if (!session) {
-      router.push("/auth/signin");
+      return router.push("/auth/signin");
     }
 
     try {
@@ -75,8 +75,7 @@ const ProductCard: React.FC<CardProps> = ({
     e.stopPropagation();
 
     if (!session) {
-      router.push("/auth/signin");
-      return;
+      return router.push("/auth/signin");
     }
     try {
       setIsFavoriting(true);
