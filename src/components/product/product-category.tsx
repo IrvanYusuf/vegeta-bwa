@@ -52,7 +52,7 @@ const ProductCategory: React.FC<CategoryProps> = ({
 }: CategoryProps) => {
   return (
     <div className="w-[100%]">
-      <Link href={`/product?category=${id}`} style={{ width: "100%" }}>
+      <Link href={`/product?categories=${id}`} style={{ width: "100%" }}>
         <Button
           className={cn(
             "h-[100%] w-[100%] border rounded-xl",
