@@ -45,6 +45,7 @@ const ProductDetailPage = ({ id }: { id: string }) => {
   const handleAddToCart = async () => {
     if (!session) {
       router.push("/auth/signin");
+      return;
     }
 
     try {
@@ -179,9 +180,7 @@ const ProductDetailPage = ({ id }: { id: string }) => {
                 "py-1 px-4 bg-carrot text-white leading-4",
                 hover.shadow
               )}
-              onClick={() => {
-                router.push("/checkout");
-              }}
+              onClick={handleAddToCart}
               disabled={isLoadingMutateCheckout || isLoading}
             >
               {isLoadingMutateCheckout || isLoading ? (
